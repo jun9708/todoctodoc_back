@@ -8,9 +8,9 @@ import kr.co.todoctodoc_back.user._dto.UserReqDTO;
 import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import kr.co.todoctodoc_back.user.token.TokenRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -22,16 +22,17 @@ public class UserRestController {
     private final HttpSession session;
 
 
+    /*
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserReqDTO.LoginDTO dto,
-                        @RequestHeader("Authorization") String token) {
+                                   @RequestHeader("Authorization") String token) {
         System.out.println("로그인 컨트롤러 진입 " + dto.getSocialName());
         System.out.println("로그인 컨트롤러 진입 " + token);
 
         // 카카오 로그인 처리 로직
-        if (dto.getSocialName().equals("카카오톡")){
+        if (dto.getSocialName().equals("카카오톡")) {
             System.out.println("카카오톡 걸림");
-           UserRespDTO.KakaoProfile kakaoProfile = tokenRequest.kakaoTokenRequest(token);
+            UserRespDTO.KakaoProfile kakaoProfile = tokenRequest.kakaoTokenRequest(token);
             System.out.println("카카오톡 정보 잘 가져옴? " + kakaoProfile.getProperties().getNickname());
             UserRespDTO.LoginDTO response = userService.kakaoLogin(kakaoProfile);
             System.out.println("유저 저장 완료?" + response);
@@ -40,7 +41,7 @@ public class UserRestController {
         }
 
         // 네이버 로그인 처리 로직
-        if (dto.getSocialName().equals("네이버")){
+        if (dto.getSocialName().equals("네이버")) {
             System.out.println("네이버 걸림");
             UserRespDTO.NaverProfile naverProfile = tokenRequest.naverTokenRequest(token);
             System.out.println("네이버 정보 잘 가져옴? " + naverProfile.getResponse().getName());
@@ -52,6 +53,7 @@ public class UserRestController {
 
         return ResponseEntity.ok().body(ApiUtils.error("잘못된 접근입니다.", HttpStatus.BAD_REQUEST));
     }
+     */
 
 
     @GetMapping("/test")
@@ -64,8 +66,8 @@ public class UserRestController {
     // localhost:8080/user/my-page
     @GetMapping("/my-page")
     public ResponseEntity<?> myPage(@RequestHeader("Authorization") String token) {
-         DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
-         Integer userId = decodedJWT.getClaim("id").asInt();
+        DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
+        Integer userId = decodedJWT.getClaim("id").asInt();
         UserRespDTO.UserDTO responseDTO = userService.myPage(userId);
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
@@ -74,8 +76,8 @@ public class UserRestController {
     // localhost:8080/user/my-page/profile
     @GetMapping("/my-page/profile")
     public ResponseEntity<?> profilePage(@RequestHeader("Authorization") String token) {
-         DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
-         Integer userId = decodedJWT.getClaim("id").asInt();
+        DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
+        Integer userId = decodedJWT.getClaim("id").asInt();
         UserRespDTO.UserDTO responseDTO = userService.proflieDetail(userId);
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
@@ -84,9 +86,9 @@ public class UserRestController {
     // ME 프로필 수정
     // localhost:8080/user/my-page/profile
     @PutMapping("/my-page/profile")
-    public ResponseEntity<?> profileUpdate(@RequestBody UserReqDTO.ProfileUpdateDTO requestDTO, @RequestHeader("Authorization") String token){
-         DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
-         Integer userId = decodedJWT.getClaim("id").asInt();
+    public ResponseEntity<?> profileUpdate(@RequestBody UserReqDTO.ProfileUpdateDTO requestDTO, @RequestHeader("Authorization") String token) {
+        DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
+        Integer userId = decodedJWT.getClaim("id").asInt();
         UserRespDTO.UserDTO responseDTO = userService.profileUpdate(requestDTO, userId);
 
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
@@ -95,7 +97,7 @@ public class UserRestController {
     // ME 로그아웃
     // localhost:8080/user/logout
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(){
+    public ResponseEntity<?> logout() {
         session.invalidate();
         return ResponseEntity.ok().body(ApiUtils.success("로그아웃 완료"));
     }
@@ -103,9 +105,9 @@ public class UserRestController {
     // ME 회원탈퇴
     // localhost:8080/user/withDraw
     @PutMapping("/withDraw")
-    public ResponseEntity<?> withDraw(@RequestHeader("Authorization") String token){
-         DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
-         Integer userId = decodedJWT.getClaim("id").asInt();
+    public ResponseEntity<?> withDraw(@RequestHeader("Authorization") String token) {
+        DecodedJWT decodedJWT = JwtTokenUtils.verify(token);
+        Integer userId = decodedJWT.getClaim("id").asInt();
         UserRespDTO.withDrawDTO responseDTO = userService.withDraw(userId);
         return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }

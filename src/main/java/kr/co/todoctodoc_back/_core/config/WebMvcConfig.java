@@ -1,6 +1,7 @@
 package kr.co.todoctodoc_back._core.config;
 
-import com.example.team_project._core.interceptor.LoginInterceptor;
+
+import kr.co.todoctodoc_back._core.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

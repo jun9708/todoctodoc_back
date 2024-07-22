@@ -11,15 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Pattern;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
-@Service
 public class UserService {
 
     private final UserJPARepository userJPARepository;
 
-    @Value("${TENCO_KEY}")
-    private String tencoKey;
 
     // ME 페이지 요청
     public UserRespDTO.UserDTO myPage(Integer userId) {
@@ -69,6 +67,7 @@ public class UserService {
         return new UserRespDTO.withDrawDTO(user);
     }
 
+    /*
     public UserRespDTO.LoginDTO kakaoLogin(UserRespDTO.KakaoProfile dto) {
 
         // 유저 조회
@@ -87,7 +86,9 @@ public class UserService {
             return new UserRespDTO.LoginDTO(user, jwt);
         }
     }
+     */
 
+    /*
     public UserRespDTO.LoginDTO naverLogin(UserRespDTO.NaverProfile dto) {
         User user = userJPARepository.findByUsername(dto.getResponse().getId());
 
@@ -104,6 +105,7 @@ public class UserService {
             return new UserRespDTO.LoginDTO(user, jwt);
         }
     }
+    */
 
     /*
     // Base64 데이터 여부를 확인하는 메서드

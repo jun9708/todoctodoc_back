@@ -1,6 +1,7 @@
 package kr.co.todoctodoc_back._core.errors.exception;
 
-import com.example.team_project._core.utils.ApiUtils;
+
+import kr.co.todoctodoc_back._core.utils.ApiUtils;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

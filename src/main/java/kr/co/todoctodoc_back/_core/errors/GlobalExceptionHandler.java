@@ -1,7 +1,8 @@
 package kr.co.todoctodoc_back._core.errors;
 
-import com.example.team_project._core.errors.exception.*;
-import com.example.team_project._core.utils.ApiUtils;
+
+import kr.co.todoctodoc_back._core.errors.exception.*;
+import kr.co.todoctodoc_back._core.utils.ApiUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
