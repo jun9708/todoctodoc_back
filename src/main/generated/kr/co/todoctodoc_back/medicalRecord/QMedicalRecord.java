@@ -19,13 +19,15 @@ public class QMedicalRecord extends EntityPathBase<MedicalRecord> {
 
     public static final QMedicalRecord medicalRecord = new QMedicalRecord("medicalRecord");
 
+    public final DatePath<java.time.LocalDate> diagnosisDate = createDate("diagnosisDate", java.time.LocalDate.class);
+
     public final NumberPath<Long> hormoneNo = createNumber("hormoneNo", Long.class);
 
     public final StringPath hormoneTherapy = createString("hormoneTherapy");
 
-    public final DatePath<java.time.LocalDate> injectionDate = createDate("injectionDate", java.time.LocalDate.class);
+    public final DatePath<java.time.LocalDate> hormoneTherapyStartDate = createDate("hormoneTherapyStartDate", java.time.LocalDate.class);
 
-    public final DatePath<java.time.LocalDate> takeDate = createDate("takeDate", java.time.LocalDate.class);
+    public final DatePath<java.time.LocalDate> surgeryDate = createDate("surgeryDate", java.time.LocalDate.class);
 
     public QMedicalRecord(String variable) {
         super(MedicalRecord.class, forVariable(variable));

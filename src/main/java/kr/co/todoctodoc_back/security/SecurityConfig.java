@@ -28,6 +28,14 @@ public class SecurityConfig {
                 )
                 .logout((logout) -> logout
                         .permitAll()  // 로그아웃을 모든 사용자에게 허용
+                )
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")  // H2 콘솔의 CSRF 비활성화
+                )
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions
+                                .sameOrigin()  // H2 콘솔의 프레임 옵션 비활성화
+                        )
                 );
 
         return http.build();

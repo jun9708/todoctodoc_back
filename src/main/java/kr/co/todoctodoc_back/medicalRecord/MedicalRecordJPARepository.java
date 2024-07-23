@@ -1,4 +1,8 @@
 package kr.co.todoctodoc_back.medicalRecord;
 
-public interface MedicalRecordJPARepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface MedicalRecordJPARepository extends JpaRepository<MedicalRecord, Long> {
 }
