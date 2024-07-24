@@ -18,42 +18,31 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/public/**", "/h2-console/**").permitAll()  // 공용 경로 설정
-                        .anyRequest().authenticated()  // 나머지 경로는 인증 필요
+                .authorizeHttpRequests(requests -> requests
+                        .anyRequest().permitAll()  // 모든 요청 허용
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")  // 커스텀 로그인 페이지 경로
-                        .permitAll()  // 모든 사용자에게 로그인 페이지 접근 허용
-                )
-                .logout((logout) -> logout
-                        .permitAll()  // 로그아웃을 모든 사용자에게 허용
-                )
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**")  // H2 콘솔의 CSRF 비활성화
-                )
+                .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화
                 .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions
-                                .sameOrigin()  // H2 콘솔의 프레임 옵션 비활성화
-                        )
+                        .frameOptions(frameOptions -> frameOptions.disable())  // X-Frame-Options 비활성화
                 );
 
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/resources/**");  // 정적 자원 무시
-    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring().requestMatchers("/resources/**");  // 정적 자원 무시
+//    }
+//
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
 }

@@ -35,13 +35,13 @@ public class MedicalRecordService {
         List<HormoneTherapy> hormoneTherapies = medicalRecordReqDTO.getHormoneTherapies().stream()
                 .map(dto -> {
                     HormoneTherapy hormoneTherapy = new HormoneTherapy();
-                    hormoneTherapy.setName(dto.getName());
+                    hormoneTherapy.setName(hormoneTherapy.getName());
                     hormoneTherapy.setMedicalRecord(medicalRecord);
                     return hormoneTherapy;
                 })
                 .collect(Collectors.toList());
 
-        medicalRecord.setHormoneTherapies(hormoneTherapies);
+        medicalRecord.setHormoneTherapy(hormoneTherapies);
 
         medicalRecordJPARepository.save(medicalRecord);
 

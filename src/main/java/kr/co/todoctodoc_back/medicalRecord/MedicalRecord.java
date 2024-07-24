@@ -20,14 +20,13 @@ public class MedicalRecord {
 
     private LocalDate diagnosisDate;
     private LocalDate surgeryDate;
-    private String hormoneTherapy;
     private LocalDate hormoneTherapyStartDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicalRecord")
-    private List<HormoneTherapy> hormoneTherapies;
+    private List<HormoneTherapy> hormoneTherapy;
 
     @Builder
-    public MedicalRecord(Long hormoneNo, LocalDate diagnosisDate, LocalDate surgeryDate, String hormoneTherapy, LocalDate hormoneTherapyStartDate) {
+    public MedicalRecord(Long hormoneNo, LocalDate diagnosisDate, LocalDate surgeryDate, List<HormoneTherapy> hormoneTherapy, LocalDate hormoneTherapyStartDate) {
         this.id = id;
         this.diagnosisDate = diagnosisDate;
         this.surgeryDate = surgeryDate;

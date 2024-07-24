@@ -8,10 +8,12 @@ import kr.co.todoctodoc_back.user._dto.UserReqDTO;
 import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import kr.co.todoctodoc_back.user.token.TokenRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+@Slf4j
 @RequestMapping("/user")
 @RequiredArgsConstructor
 @RestController
@@ -59,6 +61,15 @@ public class UserRestController {
     @GetMapping("/test")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok().body("test");
+    }
+
+    //회원가입
+    @PostMapping("/register" )
+    public void userRegister(@RequestBody UserReqDTO.userRegisterDTO userRegisterDTO){
+
+        log.info("userRegister 실행 : " +userRegisterDTO);
+        userService.userRegister(userRegisterDTO);
+
     }
 
 

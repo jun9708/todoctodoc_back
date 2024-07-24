@@ -5,6 +5,14 @@ import lombok.Data;
 @Data
 public class UserReqDTO {
 
+    //회원가입 요청
+    public static class userRegisterDTO{
+        private String userId;
+        private String userName;
+        private String password;
+        private String nickname;
+    }
+
     // ME 프로필 페이지 수정 요청
     @Data
     public static class ProfileUpdateDTO {

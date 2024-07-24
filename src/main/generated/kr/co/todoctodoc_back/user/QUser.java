@@ -19,10 +19,6 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
-    public final NumberPath<Integer> id = createNumber("id", Integer.class);
-
-    public final BooleanPath isWithdraw = createBoolean("isWithdraw");
-
     public final StringPath nickname = createString("nickname");
 
     public final StringPath password = createString("password");
@@ -31,9 +27,11 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.sql.Timestamp> userCreatedAt = createDateTime("userCreatedAt", java.sql.Timestamp.class);
 
-    public final StringPath userImage = createString("userImage");
+    public final StringPath userId = createString("userId");
 
     public final StringPath username = createString("username");
+
+    public final NumberPath<Integer> userNo = createNumber("userNo", Integer.class);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

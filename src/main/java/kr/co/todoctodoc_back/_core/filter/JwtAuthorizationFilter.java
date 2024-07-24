@@ -34,7 +34,7 @@ public class JwtAuthorizationFilter implements Filter {
             int userId = decodedJWT.getClaim("id").asInt();
             String username = decodedJWT.getClaim("username").asString();
 
-            User sessionUser = User.builder().id(userId).username(username).build();
+            User sessionUser = User.builder().userId(String.valueOf(userId)).username(username).build();
 
             HttpSession session = request.getSession();
             session.setAttribute("sessionUser", sessionUser);

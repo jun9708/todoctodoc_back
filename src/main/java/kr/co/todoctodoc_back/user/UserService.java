@@ -1,16 +1,14 @@
 package kr.co.todoctodoc_back.user;
 
 import kr.co.todoctodoc_back._core.errors.exception.Exception404;
-import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.user._dto.UserReqDTO;
 import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.regex.Pattern;
-
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -18,6 +16,13 @@ public class UserService {
 
     private final UserJPARepository userJPARepository;
 
+    //회원가입 요청
+    public void userRegister(UserReqDTO.userRegisterDTO userReqDTO){
+
+        log.info("회원가입 서비스 실행" +userReqDTO);
+
+
+    }
 
     // ME 페이지 요청
     public UserRespDTO.UserDTO myPage(Integer userId) {
@@ -63,7 +68,6 @@ public class UserService {
     @Transactional
     public UserRespDTO.withDrawDTO withDraw(Integer userId) {
         User user = userJPARepository.findById(userId).orElseThrow(() -> new Exception404("해당 유저를 찾을 수 없습니다." + userId));
-        user.updateIsWithDraw(true);
         return new UserRespDTO.withDrawDTO(user);
     }
 

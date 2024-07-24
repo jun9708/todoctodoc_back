@@ -22,7 +22,7 @@ public class QHormoneTherapy extends EntityPathBase<HormoneTherapy> {
 
     public static final QHormoneTherapy hormoneTherapy = new QHormoneTherapy("hormoneTherapy");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final NumberPath<Long> hormone_id = createNumber("hormone_id", Long.class);
 
     public final kr.co.todoctodoc_back.medicalRecord.QMedicalRecord medicalRecord;
 
