@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -21,11 +22,13 @@ public class QMedicalRecord extends EntityPathBase<MedicalRecord> {
 
     public final DatePath<java.time.LocalDate> diagnosisDate = createDate("diagnosisDate", java.time.LocalDate.class);
 
-    public final NumberPath<Long> hormoneNo = createNumber("hormoneNo", Long.class);
+    public final ListPath<kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy, kr.co.todoctodoc_back.hormoneTherapy.QHormoneTherapy> hormoneTherapies = this.<kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy, kr.co.todoctodoc_back.hormoneTherapy.QHormoneTherapy>createList("hormoneTherapies", kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy.class, kr.co.todoctodoc_back.hormoneTherapy.QHormoneTherapy.class, PathInits.DIRECT2);
 
     public final StringPath hormoneTherapy = createString("hormoneTherapy");
 
     public final DatePath<java.time.LocalDate> hormoneTherapyStartDate = createDate("hormoneTherapyStartDate", java.time.LocalDate.class);
+
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final DatePath<java.time.LocalDate> surgeryDate = createDate("surgeryDate", java.time.LocalDate.class);
 
