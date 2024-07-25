@@ -14,7 +14,7 @@ public class JwtTokenUtils {
     public static String create(User user){
         String jwt = JWT.create()
                 .withSubject("project-key")
-                .withClaim("id", user.getUserId())
+                .withClaim("id", user.getUserid())
                 .withClaim("username", user.getUsername())
                 .withExpiresAt(Instant.now().plusMillis(1000*60*60*24*36500L))
                 .sign(Algorithm.HMAC512("final"));

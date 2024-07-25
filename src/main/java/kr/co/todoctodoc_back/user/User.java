@@ -2,15 +2,14 @@ package kr.co.todoctodoc_back.user;
 
 import jakarta.persistence.*;
 import kr.co.todoctodoc_back._core.utils.TimestampUtils;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user_tb")
@@ -20,10 +19,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userNo;
 
-    private String userId;
-
     @Column(length = 50, nullable = false, unique = true)
+    private String userid;
+
+    @Column(length = 50, nullable = false)
     private String username;
+
+    @Column(nullable = false)
+    private LocalDate birth;
+
+    @Column(length = 50, nullable = false)
+    private String tel;
 
     @Column(length = 100, nullable = false)
     private String password;
@@ -37,9 +43,12 @@ public class User {
     private Timestamp userCreatedAt;
 
     @Builder
-    public User(String userId, String username, String password, String nickname, String userImage, boolean role, Timestamp userCreatedAt) {
-        this.userId = userId;
+    public User( Integer userNo, String userId, String username, LocalDate birth, String tel, String password, String nickname, boolean role, Timestamp userCreatedAt) {
+        this.userNo = userNo;
+        this.userid = userId;
         this.username = username;
+        this.birth = birth;
+        this.tel = tel;
         this.password = password;
         this.nickname = nickname;
         this.role = role;

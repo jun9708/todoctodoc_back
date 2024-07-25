@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -27,6 +29,13 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    // Security 로그인 인증 암호화 인코더 설정
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        // 같은 평문이라도 서로 다른 암호문 생성
+        return new BCryptPasswordEncoder();
     }
 
 

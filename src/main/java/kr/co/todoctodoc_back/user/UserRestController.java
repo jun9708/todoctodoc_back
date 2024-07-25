@@ -65,11 +65,24 @@ public class UserRestController {
 
     //회원가입
     @PostMapping("/register" )
-    public void userRegister(@RequestBody UserReqDTO.userRegisterDTO userRegisterDTO){
+    public ResponseEntity<?> userRegister(@RequestBody UserReqDTO.userRegisterDTO userRegisterDTO){
 
         log.info("userRegister 실행 : " +userRegisterDTO);
-        userService.userRegister(userRegisterDTO);
+        UserRespDTO.UserRegisterDTO response = userService.userRegister(userRegisterDTO);
+        
+        log.info("응답결과" +response);
+        return ResponseEntity.ok().header(response.getMessage()).body(ApiUtils.success(response));
 
+    }
+
+    //전화번호 중복 검사
+    @PostMapping("/register_tel")
+    public ResponseEntity<?> findByTel(@RequestBody UserReqDTO.findByTel findByTel){
+
+        log.info("전화번호 중복검사 실행 : " +findByTel);
+        UserRespDTO.findByTelResult response = userService.findByPhoneNumber(findByTel);
+
+        return ResponseEntity.ok().header(response.getMessage()).body(ApiUtils.success(response));
     }
 
 

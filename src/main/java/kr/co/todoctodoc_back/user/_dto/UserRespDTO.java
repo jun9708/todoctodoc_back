@@ -8,6 +8,24 @@ import lombok.Data;
 @Data
 public class UserRespDTO {
 
+    // 회원가입 완료
+    @Data
+    public static class UserRegisterDTO{
+
+        private String Id;
+        private String Message;
+
+    }
+    
+    //전화번호 중복 검사 완료
+    @Data
+    public static class findByTelResult{
+        private String tel;
+        private String message;
+    }
+
+    
+
     // ME 메인, 프로필 페이지 요청
     @Data
     public static class UserDTO {
@@ -16,7 +34,7 @@ public class UserRespDTO {
         private String nickname;
 
         public UserDTO(User user) {
-            this.userId = user.getUserId();
+            this.userId = user.getUserid();
             this.nickname = user.getNickname();
         }
     }
@@ -52,7 +70,7 @@ public class UserRespDTO {
         private String nickname;
 
         public withDrawDTO(User user) {
-            this.userId = user.getUserId();
+            this.userId = user.getUserid();
             this.nickname = user.getNickname();
         }
     }
@@ -77,7 +95,6 @@ public class UserRespDTO {
                     .username(id)
                     .password(password)
                     .nickname(properties.nickname)
-                    .userImage(properties.profileImage)
                     .build();
         }
 
@@ -103,7 +120,6 @@ public class UserRespDTO {
                     .username(response.id)
                     .password(password)
                     .nickname(response.name)
-                    .userImage(response.profileImage)
                     .build();
         }
     }

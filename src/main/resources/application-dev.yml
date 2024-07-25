@@ -5,6 +5,9 @@ server:
       force: true
   port: 8080
 
+mybatis:
+  mapper-locations: classpath:mappers/**/*.xml
+
 spring:
   jackson:
     serialization:
@@ -18,10 +21,17 @@ spring:
       max-request-size: 20MB
 
   datasource:
-    url: jdbc:h2:mem:test;MODE=MySQL
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    h2:
+      url: jdbc:h2:mem:test;MODE=MySQL
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+    mysql:
+      url: jdbc:mysql://localhost:3306/todoctodoc_back
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: theWell
+      password: abcd1234!
+
   h2:
     console:
       enabled: true
