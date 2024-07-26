@@ -35,7 +35,6 @@ public class UserRespDTO {
 
         public UserDTO(User user) {
             this.userId = user.getUserid();
-            this.nickname = user.getNickname();
         }
     }
 
@@ -57,7 +56,6 @@ public class UserRespDTO {
 
             public UserLoginDTO(User user) {
                 this.username = user.getUsername();
-                this.nickname = user.getNickname();
             }
         }
     }
@@ -71,7 +69,6 @@ public class UserRespDTO {
 
         public withDrawDTO(User user) {
             this.userId = user.getUserid();
-            this.nickname = user.getNickname();
         }
     }
 
@@ -94,7 +91,6 @@ public class UserRespDTO {
             return User.builder()
                     .username(id)
                     .password(password)
-                    .nickname(properties.nickname)
                     .build();
         }
 
@@ -119,7 +115,6 @@ public class UserRespDTO {
             return User.builder()
                     .username(response.id)
                     .password(password)
-                    .nickname(response.name)
                     .build();
         }
     }

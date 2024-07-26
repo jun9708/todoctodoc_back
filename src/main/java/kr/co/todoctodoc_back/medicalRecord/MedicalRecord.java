@@ -18,6 +18,8 @@ public class MedicalRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String useid;
+
     private LocalDate diagnosisDate;
     private LocalDate surgeryDate;
     private LocalDate hormoneTherapyStartDate;
