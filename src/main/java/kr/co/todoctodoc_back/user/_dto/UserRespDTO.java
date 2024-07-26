@@ -12,7 +12,7 @@ public class UserRespDTO {
     @Data
     public static class UserRegisterDTO{
 
-        private String Id;
+        private String userId;
         private String Message;
 
     }

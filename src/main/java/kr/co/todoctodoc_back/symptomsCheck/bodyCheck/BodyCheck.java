@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,5 +22,6 @@ public class BodyCheck {
     private int bodyCheckNo;
     private String userId;
     private String score;
+    private LocalTime alarm;
 
 }

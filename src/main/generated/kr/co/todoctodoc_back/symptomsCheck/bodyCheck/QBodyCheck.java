@@ -19,6 +19,8 @@ public class QBodyCheck extends EntityPathBase<BodyCheck> {
 
     public static final QBodyCheck bodyCheck = new QBodyCheck("bodyCheck");
 
+    public final TimePath<java.time.LocalTime> alarm = createTime("alarm", java.time.LocalTime.class);
+
     public final NumberPath<Integer> bodyCheckNo = createNumber("bodyCheckNo", Integer.class);
 
     public final StringPath score = createString("score");

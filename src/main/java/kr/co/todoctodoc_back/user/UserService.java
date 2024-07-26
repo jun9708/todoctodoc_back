@@ -49,7 +49,7 @@ public class UserService {
             log.info("회원가입 완료 : " +saveUser);
 
             UserRespDTO.UserRegisterDTO response = new UserRespDTO.UserRegisterDTO();
-            response.setId(userReqDTO.getUserId());
+            response.setUserId(userReqDTO.getUserId());
             response.setMessage("success : 회원가입 성공");
 
             log.info("결과 : " +response);
@@ -59,7 +59,7 @@ public class UserService {
 
         }else {
             UserRespDTO.UserRegisterDTO response = new UserRespDTO.UserRegisterDTO();
-            response.setId(userReqDTO.getUserId());
+            response.setUserId(userReqDTO.getUserId());
             response.setMessage("fail : 중복된 아이디입니다");
 
             log.info("결과 : " +response);
