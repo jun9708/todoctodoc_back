@@ -1,6 +1,7 @@
 package kr.co.todoctodoc_back.user;
 
 import kr.co.todoctodoc_back._core.errors.exception.Exception404;
+import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.user._dto.UserReqDTO;
 import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import lombok.RequiredArgsConstructor;
@@ -41,15 +42,18 @@ public class UserService {
             userRegister.setUsername(userReqDTO.getUserName());
             userRegister.setBirth(userReqDTO.getBirth());
             userRegister.setTel(userReqDTO.getTel());
-            userRegister.setPassword(userReqDTO.getPassword());
+            userRegister.setPassword(encoded);
             userRegister.setNickname(userReqDTO.getNickname());
             userRegister.setRole(true);
 
             User saveUser = userJPARepository.save(userRegister);
             log.info("회원가입 완료 : " +saveUser);
 
+            String token = JwtTokenUtils.create(saveUser);
+
             UserRespDTO.UserRegisterDTO response = new UserRespDTO.UserRegisterDTO();
             response.setUserId(userReqDTO.getUserId());
+            response.setToken(token);
             response.setMessage("success : 회원가입 성공");
 
             log.info("결과 : " +response);
@@ -70,6 +74,49 @@ public class UserService {
 
     }
 
+    //회원 로그인
+    public UserRespDTO.UserRegisterDTO userLogin(UserReqDTO.LoginDTO loginDTO){
+
+        log.info("userLogin 실행 : " +loginDTO);
+
+        //userId 조회
+        Optional<User> optUser = userJPARepository.findByUserid(loginDTO.getUserId());
+
+        if(optUser.isPresent()){
+            User user = optUser.get();
+                //비밀번호 비고
+                if(passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
+                    String token = JwtTokenUtils.create(user);
+
+                    UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
+                    userResponse.setUserId(user.getUserid());
+                    userResponse.setToken(token);
+                    userResponse.setMessage("success : 로그인 성공");
+
+                    log.info("로그인 성공");
+                    return userResponse;
+
+                }else{
+                    //비밀번호 불일치시
+                    UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
+                    userResponse.setMessage("fail : 비밀번호가 일치하지 않음");
+
+                    log.info("비밀번호가 일치하지않음");
+                    return userResponse;
+
+                }
+        }else{
+            // 사용자 ID가 존재하지 않을경우
+            UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
+            userResponse.setMessage("fail : 사용자 ID가 존재하지 않습니다");
+
+            log.info("userId가 존재하지 않음");
+            return userResponse;
+        }
+
+
+    }
+
 
     //전화번호 중복 검사 요청
     public UserRespDTO.findByTelResult findByPhoneNumber(UserReqDTO.findByTel findByTel){
@@ -84,7 +131,7 @@ public class UserService {
             
             UserRespDTO.findByTelResult response = new UserRespDTO.findByTelResult();
             response.setTel(findByTel.getTel());
-            response.setMessage("success : 인증번호가 전송되었습니다");
+            response.setMessage("success : 사용 가능한 전화번호입니다");
             return response;
 
         }else{

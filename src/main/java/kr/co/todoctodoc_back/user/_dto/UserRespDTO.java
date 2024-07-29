@@ -7,12 +7,14 @@ import lombok.Data;
 
 @Data
 public class UserRespDTO {
+    
 
-    // 회원가입 완료
+    // 회원
     @Data
     public static class UserRegisterDTO{
 
         private String userId;
+        private String token;
         private String Message;
 
     }
@@ -23,7 +25,6 @@ public class UserRespDTO {
         private String tel;
         private String message;
     }
-
     
 
     // ME 메인, 프로필 페이지 요청

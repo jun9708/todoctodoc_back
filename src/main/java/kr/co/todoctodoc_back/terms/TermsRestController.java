@@ -33,7 +33,6 @@ public class TermsRestController {
     //회원가입 약관 조회
     @GetMapping("/terms")
     public TermsRespDTO.TermsDTO terms(Model model){
-        int termsNo = 0;
 
         log.info("1. selectTerms 실행 ");
 

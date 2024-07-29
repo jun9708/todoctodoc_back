@@ -16,20 +16,20 @@ public class MedicalRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer medicalNo;
 
-    private String useid;
+    private String userId;
 
     private LocalDate diagnosisDate;
     private LocalDate surgeryDate;
     private LocalDate hormoneTherapyStartDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicalRecord")
+    @OneToMany(mappedBy = "medical_record_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HormoneTherapy> hormoneTherapy;
 
     @Builder
-    public MedicalRecord(Long hormoneNo, LocalDate diagnosisDate, LocalDate surgeryDate, List<HormoneTherapy> hormoneTherapy, LocalDate hormoneTherapyStartDate) {
-        this.id = id;
+    public MedicalRecord(Integer medicalNo, LocalDate diagnosisDate, LocalDate surgeryDate, List<HormoneTherapy> hormoneTherapy, LocalDate hormoneTherapyStartDate) {
+        this.medicalNo = medicalNo;
         this.diagnosisDate = diagnosisDate;
         this.surgeryDate = surgeryDate;
         this.hormoneTherapy = hormoneTherapy;

@@ -22,11 +22,13 @@ public class QHormoneTherapy extends EntityPathBase<HormoneTherapy> {
 
     public static final QHormoneTherapy hormoneTherapy = new QHormoneTherapy("hormoneTherapy");
 
-    public final NumberPath<Long> hormone_id = createNumber("hormone_id", Long.class);
+    public final NumberPath<Long> hormoneNo = createNumber("hormoneNo", Long.class);
 
-    public final kr.co.todoctodoc_back.medicalRecord.QMedicalRecord medicalRecord;
+    public final kr.co.todoctodoc_back.medicalRecord.QMedicalRecord medical_record_id;
 
     public final StringPath name = createString("name");
+
+    public final StringPath userId = createString("userId");
 
     public QHormoneTherapy(String variable) {
         this(HormoneTherapy.class, forVariable(variable), INITS);
@@ -46,7 +48,7 @@ public class QHormoneTherapy extends EntityPathBase<HormoneTherapy> {
 
     public QHormoneTherapy(Class<? extends HormoneTherapy> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.medicalRecord = inits.isInitialized("medicalRecord") ? new kr.co.todoctodoc_back.medicalRecord.QMedicalRecord(forProperty("medicalRecord")) : null;
+        this.medical_record_id = inits.isInitialized("medical_record_id") ? new kr.co.todoctodoc_back.medicalRecord.QMedicalRecord(forProperty("medical_record_id")) : null;
     }
 
 }

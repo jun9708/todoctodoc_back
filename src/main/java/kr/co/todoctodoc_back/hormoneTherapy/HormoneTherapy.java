@@ -13,16 +13,13 @@ public class HormoneTherapy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hormone_id;
+    private Long hormoneNo;
 
     @ManyToOne
     @JoinColumn(name = "medical_record_id")
-    private MedicalRecord medicalRecord;
+    private MedicalRecord medical_record_id;
 
+    private String userId;
     private String name;
-
-
-
-
 
 }

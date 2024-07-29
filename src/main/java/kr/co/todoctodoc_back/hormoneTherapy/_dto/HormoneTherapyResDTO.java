@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HormoneTherapyResDTO {
-    private Long id;
+    private Long hormoneNo;
     private String name;
 
-    public HormoneTherapyResDTO(Long id, String name) {
-        this.id = id;
+    public HormoneTherapyResDTO(Long hormoneNo, String name) {
+        this.hormoneNo = hormoneNo;
         this.name = name;
     }
 

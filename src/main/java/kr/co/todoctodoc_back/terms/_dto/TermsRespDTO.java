@@ -12,8 +12,6 @@ public class TermsRespDTO {
     @Data
     public static class TermsDTO{
 
-        private int termsNo;
-
         @Lob
         private String content1;
         @Lob

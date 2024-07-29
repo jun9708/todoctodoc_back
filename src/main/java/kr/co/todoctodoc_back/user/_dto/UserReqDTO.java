@@ -37,6 +37,8 @@ public class UserReqDTO {
     }
     @Data
     public static class LoginDTO {
+        private String userId;
+        private String password;
         private String socialName;
     }
 }

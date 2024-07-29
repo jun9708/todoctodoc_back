@@ -22,6 +22,7 @@ public class UserRestController {
     private final UserService userService;
     private final TokenRequest tokenRequest;
     private final HttpSession session;
+    private final UserJPARepository userJPARepository;
 
 
     /*
@@ -57,6 +58,19 @@ public class UserRestController {
     }
      */
 
+    //일반 로그인
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserReqDTO.LoginDTO loginDTO){
+
+        log.info("login 실행 : " +loginDTO);
+        UserRespDTO.UserRegisterDTO userResponse = userService.userLogin(loginDTO);
+
+        return ResponseEntity.ok()
+                .header(userResponse.getToken(), userResponse.getMessage())
+                .body(ApiUtils.success(userResponse));
+
+    }
+
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
@@ -71,7 +85,10 @@ public class UserRestController {
         UserRespDTO.UserRegisterDTO response = userService.userRegister(userRegisterDTO);
         
         log.info("응답결과" +response);
-        return ResponseEntity.ok().header(response.getMessage()).body(ApiUtils.success(response));
+        return ResponseEntity.ok()
+                .header(response.getToken(), response.getMessage())
+                .body(ApiUtils.success(response));
+
 
     }
 

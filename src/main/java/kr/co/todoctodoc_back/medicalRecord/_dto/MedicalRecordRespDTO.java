@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class MedicalRecordRespDTO {
 
-    private Long id;
+    private Integer medicalNo;
     private String message;
 
 }
