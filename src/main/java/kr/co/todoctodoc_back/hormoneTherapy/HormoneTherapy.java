@@ -6,20 +6,16 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class HormoneTherapy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hormoneNo;
+    private int hormoneNo;
 
-    @ManyToOne
-    @JoinColumn(name = "medical_record_id")
-    private MedicalRecord medical_record_id;
-
-    private String userId;
-    private String name;
+    @Column(length = 50, nullable = false, unique = true)
+    private String therapyName;
 
 }

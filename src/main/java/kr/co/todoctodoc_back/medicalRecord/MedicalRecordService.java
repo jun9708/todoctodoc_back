@@ -1,16 +1,22 @@
 package kr.co.todoctodoc_back.medicalRecord;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.todoctodoc_back._core.errors.exception.UnAuthorizedException;
+import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy;
 import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapyJPARepository;
 import kr.co.todoctodoc_back.medicalRecord._dto.MedicalRecordReqDTO;
 import kr.co.todoctodoc_back.medicalRecord._dto.MedicalRecordRespDTO;
+import kr.co.todoctodoc_back.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,9 +34,17 @@ public class MedicalRecordService {
     @Autowired
     private HttpSession httpSession;
 
-    public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO) {
+    public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO, String token) {
+
+        User user = (User)httpSession.getAttribute("user");
+        if(user == null){
+            throw new UnAuthorizedException("error"); //사용자 인증실패
+        }
+
+        String userId = JwtTokenUtils.extractUserId(token);
+
         MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setUserId(httpSession.getId());
+        medicalRecord.setUserId(userId);
         medicalRecord.setDiagnosisDate(medicalRecordReqDTO.getDiagnosisDate());
         medicalRecord.setSurgeryDate(medicalRecordReqDTO.getSurgeryDate());
         medicalRecord.setHormoneTherapyStartDate(medicalRecordReqDTO.getHormoneTherapyStartDate());
@@ -40,14 +54,11 @@ public class MedicalRecordService {
         List<HormoneTherapy> hormoneTherapies = medicalRecordReqDTO.getHormoneTherapies().stream()
                 .map(name -> {
                     HormoneTherapy hormoneTherapy = new HormoneTherapy();
-                    hormoneTherapy.setName(name);
-                    hormoneTherapy.setUserId(medicalRecord.getUserId());
-                    hormoneTherapy.setMedical_record_id(medicalRecord);
+                    hormoneTherapy.setTherapyName(name);
                     return hormoneTherapy;
                 })
                 .collect(Collectors.toList());
 
-        medicalRecord.setHormoneTherapy(hormoneTherapies);
         medicalRecordJPARepository.save(medicalRecord);
 
         MedicalRecordRespDTO response = new MedicalRecordRespDTO();

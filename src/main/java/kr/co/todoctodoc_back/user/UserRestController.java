@@ -71,7 +71,6 @@ public class UserRestController {
 
     }
 
-
     @GetMapping("/test")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok().body("test");
@@ -89,6 +88,19 @@ public class UserRestController {
                 .header(response.getToken(), response.getMessage())
                 .body(ApiUtils.success(response));
 
+
+    }
+
+    //이메일 주소 조회
+    @GetMapping("/domain")
+    public ResponseEntity<?> domainCheck(){
+
+        log.info("도메인 조회");
+        UserRespDTO.DomainRespDTO domainRespDTO = userService.domainCheck();
+
+        return ResponseEntity.ok()
+                .header(domainRespDTO.toString())
+                .body(ApiUtils.success(domainRespDTO));
 
     }
 

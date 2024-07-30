@@ -17,10 +17,16 @@ public class UserReqDTO {
     public static class userRegisterDTO{
         private String userId;
         private String userName;
-        private LocalDate birth;
+        private String birth;
         private String tel;
         private String password;
         private String nickname;
+    }
+
+    //도메인조회
+    @Data
+    public static class domainDTO{
+        private String domainName;
     }
 
     //전화번호 중복 검사 요청

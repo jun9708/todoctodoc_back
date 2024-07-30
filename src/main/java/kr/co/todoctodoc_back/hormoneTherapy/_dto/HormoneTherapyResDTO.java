@@ -1,20 +1,24 @@
 package kr.co.todoctodoc_back.hormoneTherapy._dto;
 
+import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Data
 @Getter
 @Setter
 public class HormoneTherapyResDTO {
-    private Long hormoneNo;
-    private String name;
 
-    public HormoneTherapyResDTO(Long hormoneNo, String name) {
-        this.hormoneNo = hormoneNo;
-        this.name = name;
+    @Data
+    public static class therapyName{
+
+        private int hormoneNo;
+        private String therapyName;
+
     }
 
-    // 생성자, getter, setter 등 Lombok이 자동으로 생성
+
 }

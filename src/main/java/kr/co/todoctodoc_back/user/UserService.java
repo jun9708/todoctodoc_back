@@ -6,13 +6,13 @@ import kr.co.todoctodoc_back.user._dto.UserReqDTO;
 import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,6 +23,7 @@ public class UserService {
 
     private final UserJPARepository userJPARepository;
     private final PasswordEncoder passwordEncoder;
+    private final DomainJPARepository domainJPARepository;
 
 
     //회원가입 요청
@@ -113,6 +114,27 @@ public class UserService {
             log.info("userId가 존재하지 않음");
             return userResponse;
         }
+
+
+    }
+
+    //도메인 조회
+    public UserRespDTO.DomainRespDTO domainCheck(){
+
+        log.info("도메인 조회 service 실행");
+        List<Domain> domainList = domainJPARepository.findAll();
+
+        // domainName만 추출하여 리스트로 변환
+        List<String> domainNames = domainList.stream()
+                .map(Domain::getDomainName)
+                .collect(Collectors.toList());
+        
+        log.info("도메인 리스트 조회"+domainNames);
+
+        UserRespDTO.DomainRespDTO domainRespDTO = new UserRespDTO.DomainRespDTO();
+        domainRespDTO.setDomainName(domainNames);
+
+        return domainRespDTO;
 
 
     }

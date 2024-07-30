@@ -11,5 +11,8 @@ public class UnAuthorizedException extends RuntimeException {
 		super(message);
 		this.status = status;
 	}
+
+	public UnAuthorizedException(String error) {
+	}
 }
 

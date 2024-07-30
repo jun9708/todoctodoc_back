@@ -2,8 +2,11 @@ package kr.co.todoctodoc_back.user._dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import kr.co.todoctodoc_back.user.Domain;
 import kr.co.todoctodoc_back.user.User;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class UserRespDTO {
@@ -17,6 +20,12 @@ public class UserRespDTO {
         private String token;
         private String Message;
 
+    }
+
+    //도메인 조회
+    @Data
+    public static class DomainRespDTO{
+        private List<String> domainName;
     }
     
     //전화번호 중복 검사 완료

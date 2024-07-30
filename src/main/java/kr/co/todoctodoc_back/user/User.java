@@ -26,7 +26,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private LocalDate birth;
+    private String birth;
 
     @Column(length = 50, nullable = false)
     private String tel;
@@ -34,7 +34,7 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String nickname;
 
     private boolean role; // user = true | admin = false
@@ -43,7 +43,7 @@ public class User {
     private Timestamp userCreatedAt;
 
     @Builder
-    public User( Integer userNo, String userId, String username, LocalDate birth, String tel, String password, String nickname, boolean role, Timestamp userCreatedAt) {
+    public User( Integer userNo, String userId, String username, String birth, String tel, String password, String nickname, boolean role, Timestamp userCreatedAt) {
         this.userNo = userNo;
         this.userid = userId;
         this.username = username;

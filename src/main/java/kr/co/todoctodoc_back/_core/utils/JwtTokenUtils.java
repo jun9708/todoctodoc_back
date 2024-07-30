@@ -28,4 +28,9 @@ public class JwtTokenUtils {
                 .build().verify(jwt);
         return decodedJWT;
     }
+
+    public static String extractUserId(String token) {
+        DecodedJWT decodedJWT = verify(token);
+        return decodedJWT.getClaim("id").asString();
+    }
 }
