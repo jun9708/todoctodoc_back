@@ -3,6 +3,8 @@ package kr.co.todoctodoc_back.medicalRecord;
 import jakarta.servlet.http.HttpSession;
 import kr.co.todoctodoc_back._core.errors.exception.UnAuthorizedException;
 import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
+import kr.co.todoctodoc_back.hormoneLink.HormoneLink;
+import kr.co.todoctodoc_back.hormoneLink.HormoneLinkJPARepository;
 import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapy;
 import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapyJPARepository;
 import kr.co.todoctodoc_back.medicalRecord._dto.MedicalRecordReqDTO;
@@ -18,7 +20,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,33 +40,38 @@ public class MedicalRecordService {
     private HormoneTherapyJPARepository hormoneTherapyJPARepository;
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private HormoneLinkJPARepository hormoneLinkJPARepository;
 
     public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO, String token) {
 
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null){
+        //토큰 사용자ID 추출
+        String userId;
+        try{
+            userId = JwtTokenUtils.extractUserId(token);
+        }catch (Exception e){
+            throw new UnAuthorizedException("fail token");
+        }
+
+        //사용자 인증 확인
+        if(userId == null || userId.isEmpty()){
             throw new UnAuthorizedException("error"); //사용자 인증실패
         }
 
-        String userId = JwtTokenUtils.extractUserId(token);
+        // medicalRecord 테이블에서 userId 확인
+        Optional<MedicalRecord> existingRecord = medicalRecordJPARepository.findByUserId(userId);
+        if (existingRecord.isPresent()) {
+            // 이미 존재하는 경우 로직을 수행하지 않음
+            throw new IllegalArgumentException("A medical record for this user already exists");
+        }
 
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setUserId(userId);
-        medicalRecord.setDiagnosisDate(medicalRecordReqDTO.getDiagnosisDate());
-        medicalRecord.setSurgeryDate(medicalRecordReqDTO.getSurgeryDate());
-        medicalRecord.setHormoneTherapyStartDate(medicalRecordReqDTO.getHormoneTherapyStartDate());
-
-        log.info("호르몬요법 값 : " +medicalRecordReqDTO.getHormoneTherapies());
-
-        List<HormoneTherapy> hormoneTherapies = medicalRecordReqDTO.getHormoneTherapies().stream()
-                .map(name -> {
-                    HormoneTherapy hormoneTherapy = new HormoneTherapy();
-                    hormoneTherapy.setTherapyName(name);
-                    return hormoneTherapy;
-                })
-                .collect(Collectors.toList());
-
-        medicalRecordJPARepository.save(medicalRecord);
+        MedicalRecord medicalRecord = MedicalRecord.builder()
+                .userId(userId)
+                .diagnosisDate(medicalRecordReqDTO.getDiagnosisDate())
+                .surgeryDate(medicalRecordReqDTO.getSurgeryDate())
+                .hormoneTherapyStartDate(medicalRecordReqDTO.getHormoneTherapyStartDate())
+                .createdAt(Timestamp.valueOf(LocalDateTime.now()))
+                .build();
 
         MedicalRecordRespDTO response = new MedicalRecordRespDTO();
         response.setMedicalNo(medicalRecord.getMedicalNo());

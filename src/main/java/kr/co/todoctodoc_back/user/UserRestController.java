@@ -9,6 +9,7 @@ import kr.co.todoctodoc_back.user._dto.UserRespDTO;
 import kr.co.todoctodoc_back.user.token.TokenRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,7 +67,7 @@ public class UserRestController {
         UserRespDTO.UserRegisterDTO userResponse = userService.userLogin(loginDTO);
 
         return ResponseEntity.ok()
-                .header(userResponse.getToken(), userResponse.getMessage())
+                .header(userResponse.getToken())
                 .body(ApiUtils.success(userResponse));
 
     }
@@ -82,14 +83,13 @@ public class UserRestController {
 
         log.info("userRegister 실행 : " +userRegisterDTO);
         UserRespDTO.UserRegisterDTO response = userService.userRegister(userRegisterDTO);
-        
-        log.info("응답결과" +response);
+
         return ResponseEntity.ok()
-                .header(response.getToken(), response.getMessage())
+                .header(response.getToken())
                 .body(ApiUtils.success(response));
 
-
     }
+
 
     //이메일 주소 조회
     @GetMapping("/domain")

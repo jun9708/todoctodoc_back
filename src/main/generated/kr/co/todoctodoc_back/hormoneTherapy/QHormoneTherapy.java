@@ -19,7 +19,7 @@ public class QHormoneTherapy extends EntityPathBase<HormoneTherapy> {
 
     public static final QHormoneTherapy hormoneTherapy = new QHormoneTherapy("hormoneTherapy");
 
-    public final NumberPath<Integer> hormoneNo = createNumber("hormoneNo", Integer.class);
+    public final NumberPath<Integer> hormoneTherapyNo = createNumber("hormoneTherapyNo", Integer.class);
 
     public final StringPath therapyName = createString("therapyName");
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserJPARepository extends JpaRepository<User, Integer> {
 
     //userId 검사
-    public Optional<User> findByUserid(String UserId);
+    public Optional<User> findByUserId(String UserId);
 
     //user -> tel 전화번호 중복검사
     public Optional<User> findByTel(String tel);

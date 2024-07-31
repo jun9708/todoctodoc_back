@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user_tb")
@@ -20,7 +19,7 @@ public class User {
     private Integer userNo;
 
     @Column(length = 50, nullable = false, unique = true)
-    private String userid;
+    private String userId;
 
     @Column(length = 50, nullable = false)
     private String username;
@@ -45,7 +44,7 @@ public class User {
     @Builder
     public User( Integer userNo, String userId, String username, String birth, String tel, String password, String nickname, boolean role, Timestamp userCreatedAt) {
         this.userNo = userNo;
-        this.userid = userId;
+        this.userId = userId;
         this.username = username;
         this.birth = birth;
         this.tel = tel;

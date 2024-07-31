@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,12 +20,29 @@ public class HormoneTherapyService {
     private final HormoneTherapyJPARepository hormoneTherapyJPARepository;
 
     //호르몬요법 조회
-    public HormoneTherapyResDTO.therapyName therapyCheck(){
+    public List<HormoneTherapyResDTO.therapyName> therapyCheck(){
 
         log.info("therapyCheck 서비스 실행");
         List<HormoneTherapy> hormoneTherapyList = hormoneTherapyJPARepository.findAll();
 
-        log.info("111"+hormoneTherapyList);
+
+        log.info("테라피 리스트 : " +hormoneTherapyList);
+
+
+        // 조회된 데이터를 therapyName 형식으로 변환
+        List<HormoneTherapyResDTO.therapyName> therapyRespList = hormoneTherapyList.stream()
+                .map(therapy -> {
+                    HormoneTherapyResDTO.therapyName dto = new HormoneTherapyResDTO.therapyName();
+                    dto.setHormoneNo(therapy.getHormoneTherapyNo());
+                    dto.setTherapyName(therapy.getTherapyName());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return therapyRespList;
+    }
+
+
 
         /*
         List<HormoneTherapyResDTO> therapyResDTOList = hormoneTherapyList.stream()
@@ -34,13 +52,5 @@ public class HormoneTherapyService {
                 .collect(Collectors.toList());
 
          */
-
-
-        HormoneTherapyResDTO.therapyName therapyNameRespDTO = new HormoneTherapyResDTO.therapyName();
-
-        return therapyNameRespDTO;
-
-    }
-
 
 }

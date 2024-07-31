@@ -31,7 +31,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.sql.Timestamp> userCreatedAt = createDateTime("userCreatedAt", java.sql.Timestamp.class);
 
-    public final StringPath userid = createString("userid");
+    public final StringPath userId = createString("userId");
 
     public final StringPath username = createString("username");
 

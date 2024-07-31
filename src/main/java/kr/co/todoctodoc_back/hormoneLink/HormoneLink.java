@@ -1,17 +1,14 @@
 package kr.co.todoctodoc_back.hormoneLink;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class HormoneLink {
 
@@ -23,7 +20,7 @@ public class HormoneLink {
     private String userId;
 
     @Column(length = 50, nullable = false)
-    private String hormoneNo;
+    private int hormoneTherapyNo;
 
     @CreationTimestamp
     private Timestamp createdAt;

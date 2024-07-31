@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -23,7 +25,7 @@ public class HormoneTherapyRestController {
     public ResponseEntity<?> therapyCheck(){
 
         log.info("therapyCheck 실행 ");
-        HormoneTherapyResDTO.therapyName therapyName = hormoneTherapyService.therapyCheck();
+        List<HormoneTherapyResDTO.therapyName> therapyName = hormoneTherapyService.therapyCheck();
 
 
         return ResponseEntity.ok().header(therapyName.toString()).body(ApiUtils.success(therapyName));

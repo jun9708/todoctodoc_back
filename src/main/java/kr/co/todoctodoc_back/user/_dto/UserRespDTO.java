@@ -44,7 +44,7 @@ public class UserRespDTO {
         private String nickname;
 
         public UserDTO(User user) {
-            this.userId = user.getUserid();
+            this.userId = user.getUserId();
         }
     }
 
@@ -78,7 +78,7 @@ public class UserRespDTO {
         private String nickname;
 
         public withDrawDTO(User user) {
-            this.userId = user.getUserid();
+            this.userId = user.getUserId();
         }
     }
 

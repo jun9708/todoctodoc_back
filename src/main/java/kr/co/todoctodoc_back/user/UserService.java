@@ -1,5 +1,6 @@
 package kr.co.todoctodoc_back.user;
 
+import kr.co.todoctodoc_back._core.errors.exception.Exception400;
 import kr.co.todoctodoc_back._core.errors.exception.Exception404;
 import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.user._dto.UserReqDTO;
@@ -26,87 +27,77 @@ public class UserService {
     private final DomainJPARepository domainJPARepository;
 
 
+    @Transactional
     //회원가입 요청
-    public UserRespDTO.UserRegisterDTO userRegister(UserReqDTO.userRegisterDTO userReqDTO){
+    public UserRespDTO.UserRegisterDTO userRegister(UserReqDTO.userRegisterDTO userReqDTO) {
 
         //비밀번호 인코더
         String encoded = passwordEncoder.encode(userReqDTO.getPassword());
 
         //아이디 중복검사
-        Optional<User> optUser = userJPARepository.findByUserid(userReqDTO.getUserId());
+        //Optional<User> optUser = userJPARepository.findByUserId(userReqDTO.getUserId());
 
-        if(optUser.isEmpty()){
-            //사용가능
-            log.info("회원가입 서비스 실행" +userReqDTO);
-            User userRegister = new User();
-            userRegister.setUserid(userReqDTO.getUserId());
-            userRegister.setUsername(userReqDTO.getUserName());
-            userRegister.setBirth(userReqDTO.getBirth());
-            userRegister.setTel(userReqDTO.getTel());
-            userRegister.setPassword(encoded);
-            userRegister.setNickname(userReqDTO.getNickname());
-            userRegister.setRole(true);
+        try {
 
-            User saveUser = userJPARepository.save(userRegister);
-            log.info("회원가입 완료 : " +saveUser);
+            User user = User.builder()
+                    .userId(userReqDTO.getUserId())
+                    .password(encoded)
+                    .username(userReqDTO.getUserName())
+                    .birth(userReqDTO.getBirth())
+                    .tel(userReqDTO.getTel())
+                    .build();
+
+            User saveUser = userJPARepository.save(user);
+
+            UserRespDTO.UserRegisterDTO userRegisterDTO = new UserRespDTO.UserRegisterDTO();
+            userRegisterDTO.setUserId(saveUser.getUserId());
 
             String token = JwtTokenUtils.create(saveUser);
 
             UserRespDTO.UserRegisterDTO response = new UserRespDTO.UserRegisterDTO();
             response.setUserId(userReqDTO.getUserId());
             response.setToken(token);
-            response.setMessage("success : 회원가입 성공");
-
-            log.info("결과 : " +response);
 
             return response;
 
-
-        }else {
-            UserRespDTO.UserRegisterDTO response = new UserRespDTO.UserRegisterDTO();
-            response.setUserId(userReqDTO.getUserId());
-            response.setMessage("fail : 중복된 아이디입니다");
-
-            log.info("결과 : " +response);
-
-            return response;
-
+        } catch (Exception e) {
+            throw new Exception400("존재하는 이메일입니다.");
         }
 
     }
 
     //회원 로그인
-    public UserRespDTO.UserRegisterDTO userLogin(UserReqDTO.LoginDTO loginDTO){
+    public UserRespDTO.UserRegisterDTO userLogin(UserReqDTO.LoginDTO loginDTO) {
 
-        log.info("userLogin 실행 : " +loginDTO);
+        log.info("userLogin 실행 : " + loginDTO);
 
         //userId 조회
-        Optional<User> optUser = userJPARepository.findByUserid(loginDTO.getUserId());
+        Optional<User> optUser = userJPARepository.findByUserId(loginDTO.getUserId());
 
-        if(optUser.isPresent()){
+        if (optUser.isPresent()) {
             User user = optUser.get();
-                //비밀번호 비고
-                if(passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())){
-                    String token = JwtTokenUtils.create(user);
+            //비밀번호 비고
+            if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+                String token = JwtTokenUtils.create(user);
 
-                    UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
-                    userResponse.setUserId(user.getUserid());
-                    userResponse.setToken(token);
-                    userResponse.setMessage("success : 로그인 성공");
+                UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
+                userResponse.setUserId(user.getUserId());
+                userResponse.setToken(token);
+                userResponse.setMessage("success : login Complete");
 
-                    log.info("로그인 성공");
-                    return userResponse;
+                log.info("로그인 성공");
+                return userResponse;
 
-                }else{
-                    //비밀번호 불일치시
-                    UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
-                    userResponse.setMessage("fail : 비밀번호가 일치하지 않음");
+            } else {
+                //비밀번호 불일치시
+                UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
+                userResponse.setMessage("fail : 비밀번호가 일치하지 않음");
 
-                    log.info("비밀번호가 일치하지않음");
-                    return userResponse;
+                log.info("비밀번호가 일치하지않음");
+                return userResponse;
 
-                }
-        }else{
+            }
+        } else {
             // 사용자 ID가 존재하지 않을경우
             UserRespDTO.UserRegisterDTO userResponse = new UserRespDTO.UserRegisterDTO();
             userResponse.setMessage("fail : 사용자 ID가 존재하지 않습니다");
@@ -119,7 +110,7 @@ public class UserService {
     }
 
     //도메인 조회
-    public UserRespDTO.DomainRespDTO domainCheck(){
+    public UserRespDTO.DomainRespDTO domainCheck() {
 
         log.info("도메인 조회 service 실행");
         List<Domain> domainList = domainJPARepository.findAll();
@@ -128,8 +119,8 @@ public class UserService {
         List<String> domainNames = domainList.stream()
                 .map(Domain::getDomainName)
                 .collect(Collectors.toList());
-        
-        log.info("도메인 리스트 조회"+domainNames);
+
+        log.info("도메인 리스트 조회" + domainNames);
 
         UserRespDTO.DomainRespDTO domainRespDTO = new UserRespDTO.DomainRespDTO();
         domainRespDTO.setDomainName(domainNames);
@@ -141,22 +132,22 @@ public class UserService {
 
 
     //전화번호 중복 검사 요청
-    public UserRespDTO.findByTelResult findByPhoneNumber(UserReqDTO.findByTel findByTel){
+    public UserRespDTO.findByTelResult findByPhoneNumber(UserReqDTO.findByTel findByTel) {
 
-        log.info("전화번호 중복 검사 서비스 실행 : " +findByTel);
+        log.info("전화번호 중복 검사 서비스 실행 : " + findByTel);
         Optional<User> optUser = userJPARepository.findByTel(findByTel.getTel());
 
-        if(optUser.isEmpty()){
+        if (optUser.isEmpty()) {
 
             //인증번호 전송
-            log.info("인증번호 전송 !!" +findByTel);
-            
+            log.info("인증번호 전송 !!" + findByTel);
+
             UserRespDTO.findByTelResult response = new UserRespDTO.findByTelResult();
             response.setTel(findByTel.getTel());
             response.setMessage("success : 사용 가능한 전화번호입니다");
             return response;
 
-        }else{
+        } else {
 
             log.info("이미 가입된 전화번호입니다");
             UserRespDTO.findByTelResult response = new UserRespDTO.findByTelResult();
@@ -203,8 +194,8 @@ public class UserService {
          */
 
         user.updateNickname(requestDTO.getNickname());
-     //   System.out.println("조건문 지남 " + userOP.getUserImage());
-      // System.out.println("조건문 지남 " + userOP.getNickname());
+        //   System.out.println("조건문 지남 " + userOP.getUserImage());
+        // System.out.println("조건문 지남 " + userOP.getNickname());
 
         return new UserRespDTO.UserDTO(user);
     }
