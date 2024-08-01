@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class MedicalRecordRespDTO {
 
-    private Integer medicalNo;
     private String message;
 
 }

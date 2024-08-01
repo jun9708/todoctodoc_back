@@ -1,5 +1,6 @@
 package kr.co.todoctodoc_back._core.errors.exception;
 
+import kr.co.todoctodoc_back._core.utils.ApiUtils;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -12,6 +13,15 @@ public class CustomRestfullException extends RuntimeException {
 		super(message);
 		this.status = httpStatus;
 	}
-	 // 부모생성자 호출
+
+	public ApiUtils.ApiResult<?> body(){
+		return ApiUtils.error(getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	public HttpStatus status(){
+		return HttpStatus.INTERNAL_SERVER_ERROR;
+	}
+
+	// 부모생성자 호출
 	}
 

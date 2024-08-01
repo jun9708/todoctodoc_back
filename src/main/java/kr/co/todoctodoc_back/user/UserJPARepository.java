@@ -14,6 +14,10 @@ public interface UserJPARepository extends JpaRepository<User, Integer> {
     //userId 검사
     public Optional<User> findByUserId(String UserId);
 
+    //userNo 검사
+    @Query("SELECT userNo FROM User  WHERE userId = :userId")
+    Integer findUserNoByUserId(@org.apache.ibatis.annotations.Param("userId") String userId);
+
     //user -> tel 전화번호 중복검사
     public Optional<User> findByTel(String tel);
 

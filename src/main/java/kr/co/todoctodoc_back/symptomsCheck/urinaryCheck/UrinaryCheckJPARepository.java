@@ -1,4 +1,6 @@
 package kr.co.todoctodoc_back.symptomsCheck.urinaryCheck;
 
-public interface UrinaryCheckJPARepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UrinaryCheckJPARepository extends JpaRepository<UrinaryCheck, Integer> {
 }

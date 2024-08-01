@@ -23,6 +23,8 @@ public class MedicalRecordReqDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medicalNo;
 
+    private int userNo;
+
     private String userId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

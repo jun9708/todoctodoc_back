@@ -31,6 +31,8 @@ public class QMedicalRecord extends EntityPathBase<MedicalRecord> {
 
     public final StringPath userId = createString("userId");
 
+    public final NumberPath<Integer> userNo = createNumber("userNo", Integer.class);
+
     public QMedicalRecord(String variable) {
         super(MedicalRecord.class, forVariable(variable));
     }

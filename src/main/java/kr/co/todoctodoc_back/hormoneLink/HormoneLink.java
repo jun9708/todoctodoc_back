@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class HormoneLink {
 
@@ -17,12 +16,20 @@ public class HormoneLink {
     private Integer hormoneLinkNo;
 
     @Column(length = 50, nullable = false)
-    private String userId;
+    private int userNo;
 
     @Column(length = 50, nullable = false)
     private int hormoneTherapyNo;
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public HormoneLink(Integer hormoneLinkNo, int userNo, int hormoneTherapyNo,Timestamp createdAt){
+        this.hormoneLinkNo = hormoneLinkNo;
+        this.userNo = userNo;
+        this.hormoneTherapyNo = hormoneTherapyNo;
+        this.createdAt = createdAt;
+    }
 
 }

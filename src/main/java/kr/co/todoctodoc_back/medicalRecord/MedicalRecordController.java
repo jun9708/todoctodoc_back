@@ -1,5 +1,6 @@
 package kr.co.todoctodoc_back.medicalRecord;
 
+import kr.co.todoctodoc_back._core.errors.exception.CustomRestfullException;
 import kr.co.todoctodoc_back._core.errors.exception.Exception400;
 import kr.co.todoctodoc_back._core.utils.ApiUtils;
 import kr.co.todoctodoc_back.hormoneLink.HormoneLink;
@@ -33,9 +34,10 @@ public class MedicalRecordController {
         String token = authHeader.substring(7);
 
         try{
-            // hormoneLinkService 로직 수행
 
             log.info("요청 값 : " +medicalRecordReqDTO);
+
+            // hormoneLinkService 로직 수행
             HormoneLinkRespDTO hormoneLinkRespDTO = hormoneLinkService.saveHormoneLink(medicalRecordReqDTO, token);
 
             // medicalRecordService 로직 수행
@@ -44,10 +46,11 @@ public class MedicalRecordController {
             // 성공적으로 처리되면 응답 반환
             return ResponseEntity.ok().header(response.getMessage(),hormoneLinkRespDTO.toString()).body(ApiUtils.success(response));
 
-        }catch (Exception e){
-            throw new Exception400("medicalRecord 중복발생");
+        }catch (CustomRestfullException e) {
+            // 클라이언트에 전달할 오류 응답 생성
+            return ResponseEntity.status(e.getStatus())
+                    .body(ApiUtils.error("medicalRecord error : " +e.getMessage() +" : ", e.status()));
         }
-
     }
 
 }

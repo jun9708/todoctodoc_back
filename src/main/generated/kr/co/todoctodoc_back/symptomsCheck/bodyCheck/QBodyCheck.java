@@ -19,13 +19,17 @@ public class QBodyCheck extends EntityPathBase<BodyCheck> {
 
     public static final QBodyCheck bodyCheck = new QBodyCheck("bodyCheck");
 
-    public final TimePath<java.time.LocalTime> alarm = createTime("alarm", java.time.LocalTime.class);
+    public final DateTimePath<java.sql.Timestamp> bodyCheckAlarm = createDateTime("bodyCheckAlarm", java.sql.Timestamp.class);
 
     public final NumberPath<Integer> bodyCheckNo = createNumber("bodyCheckNo", Integer.class);
 
-    public final StringPath score = createString("score");
+    public final DateTimePath<java.sql.Timestamp> createdAt = createDateTime("createdAt", java.sql.Timestamp.class);
+
+    public final NumberPath<Integer> score = createNumber("score", Integer.class);
 
     public final StringPath userId = createString("userId");
+
+    public final NumberPath<Integer> userNo = createNumber("userNo", Integer.class);
 
     public QBodyCheck(String variable) {
         super(BodyCheck.class, forVariable(variable));

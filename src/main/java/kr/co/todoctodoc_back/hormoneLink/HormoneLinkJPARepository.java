@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface HormoneLinkJPARepository extends JpaRepository<HormoneLink, Integer> {
 
     //medicalRecord 조회
-    public List<HormoneLink> findByUserId(String userId);
+    public List<HormoneLink> findByUserNo(int userNo);
 
 }

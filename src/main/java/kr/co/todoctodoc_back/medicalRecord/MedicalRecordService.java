@@ -1,6 +1,9 @@
 package kr.co.todoctodoc_back.medicalRecord;
 
 import jakarta.servlet.http.HttpSession;
+import kr.co.todoctodoc_back._core.errors.exception.CustomRestfullException;
+import kr.co.todoctodoc_back._core.errors.exception.Exception400;
+import kr.co.todoctodoc_back._core.errors.exception.Exception500;
 import kr.co.todoctodoc_back._core.errors.exception.UnAuthorizedException;
 import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.hormoneLink.HormoneLink;
@@ -10,6 +13,7 @@ import kr.co.todoctodoc_back.hormoneTherapy.HormoneTherapyJPARepository;
 import kr.co.todoctodoc_back.medicalRecord._dto.MedicalRecordReqDTO;
 import kr.co.todoctodoc_back.medicalRecord._dto.MedicalRecordRespDTO;
 import kr.co.todoctodoc_back.user.User;
+import kr.co.todoctodoc_back.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +46,8 @@ public class MedicalRecordService {
     private HttpSession httpSession;
     @Autowired
     private HormoneLinkJPARepository hormoneLinkJPARepository;
+    @Autowired
+    private UserJPARepository userJPARepository;
 
     public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO, String token) {
 
@@ -50,22 +56,25 @@ public class MedicalRecordService {
         try{
             userId = JwtTokenUtils.extractUserId(token);
         }catch (Exception e){
-            throw new UnAuthorizedException("fail token");
+            throw new Exception400("saveMedicalRecord : Token error");
         }
 
         //사용자 인증 확인
         if(userId == null || userId.isEmpty()){
-            throw new UnAuthorizedException("error"); //사용자 인증실패
+            throw new Exception400("saveMedicalRecord : Token Check error"); //사용자 인증실패
         }
 
         // medicalRecord 테이블에서 userId 확인
         Optional<MedicalRecord> existingRecord = medicalRecordJPARepository.findByUserId(userId);
         if (existingRecord.isPresent()) {
             // 이미 존재하는 경우 로직을 수행하지 않음
-            throw new IllegalArgumentException("A medical record for this user already exists");
+            throw new CustomRestfullException("이미 등록되어있는 userId",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        int userNo = userJPARepository.findUserNoByUserId(userId);
+
         MedicalRecord medicalRecord = MedicalRecord.builder()
+                .userNo(userNo)
                 .userId(userId)
                 .diagnosisDate(medicalRecordReqDTO.getDiagnosisDate())
                 .surgeryDate(medicalRecordReqDTO.getSurgeryDate())
@@ -73,8 +82,9 @@ public class MedicalRecordService {
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 
+        medicalRecordJPARepository.save(medicalRecord);
+
         MedicalRecordRespDTO response = new MedicalRecordRespDTO();
-        response.setMedicalNo(medicalRecord.getMedicalNo());
         response.setMessage("진료정보 등록");
 
 

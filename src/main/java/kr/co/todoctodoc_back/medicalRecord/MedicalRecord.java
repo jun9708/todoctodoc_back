@@ -18,6 +18,8 @@ public class MedicalRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medicalNo;
 
+    private int userNo;
+
     @Column(length = 50, nullable = false, unique = true)
     private String userId;
 
@@ -29,8 +31,9 @@ public class MedicalRecord {
     private Timestamp createdAt;
 
     @Builder
-    public MedicalRecord(Integer medicalNo, String userId, LocalDate diagnosisDate, LocalDate surgeryDate, LocalDate hormoneTherapyStartDate, Timestamp createdAt) {
+    public MedicalRecord(Integer medicalNo, int userNo, String userId, LocalDate diagnosisDate, LocalDate surgeryDate, LocalDate hormoneTherapyStartDate, Timestamp createdAt) {
         this.medicalNo = medicalNo;
+        this.userNo = userNo;
         this.userId = userId;
         this.diagnosisDate = diagnosisDate;
         this.surgeryDate = surgeryDate;

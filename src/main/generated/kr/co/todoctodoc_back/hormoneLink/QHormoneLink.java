@@ -25,7 +25,7 @@ public class QHormoneLink extends EntityPathBase<HormoneLink> {
 
     public final NumberPath<Integer> hormoneTherapyNo = createNumber("hormoneTherapyNo", Integer.class);
 
-    public final StringPath userId = createString("userId");
+    public final NumberPath<Integer> userNo = createNumber("userNo", Integer.class);
 
     public QHormoneLink(String variable) {
         super(HormoneLink.class, forVariable(variable));
