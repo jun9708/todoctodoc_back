@@ -1,4 +1,4 @@
-package kr.co.todoctodoc_back.symptomsCheck.bodyCheck;
+package kr.co.todoctodoc_back.symptomsCheck.bodyCheck._details;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

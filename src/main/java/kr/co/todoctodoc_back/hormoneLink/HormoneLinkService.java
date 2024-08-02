@@ -30,21 +30,10 @@ public class HormoneLinkService {
     private final HormoneLinkJPARepository hormoneLinkJPARepository;
     private final HormoneLinkMapper hormoneLinkMapper;
 
-    public HormoneLinkRespDTO saveHormoneLink(MedicalRecordReqDTO medicalRecordReqDTO, String token) {
+    //HormoneLink 저장
+    public HormoneLinkRespDTO saveHormoneLink(MedicalRecordReqDTO medicalRecordReqDTO, String userId) {
+
         log.info("hormoneTherapyNo 조회 : " + medicalRecordReqDTO);
-
-        //토큰 사용자ID 추출
-        String userId;
-        try{
-            userId = JwtTokenUtils.extractUserId(token);
-        }catch (Exception e){
-            throw new Exception400("saveHormoneLink : Token error");
-        }
-
-        //사용자 인증 확인
-        if(userId == null || userId.isEmpty()){
-            throw new Exception400("saveHormoneLink : Token Check error"); //사용자 인증실패
-        }
 
         //userNO 조회
         int userNo = userJPARepository.findUserNoByUserId(userId);

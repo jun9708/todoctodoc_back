@@ -21,7 +21,8 @@ public class BodyCheck {
     private int bodyCheckNo;
     private int userNo;
     private String userId;
-    private int score;
+
+    private int bodyCheckDetailsNo;
 
     @CreationTimestamp
     private Timestamp bodyCheckAlarm;
@@ -29,11 +30,11 @@ public class BodyCheck {
     private Timestamp createdAt;
 
     @Builder
-    public BodyCheck(int bodyCheckNo, int userNo, String userId, int score, Timestamp bodyCheckAlarm, Timestamp createdAt){
+    public BodyCheck(int bodyCheckNo, int userNo, String userId,int bodyCheckDetailsNo, Timestamp bodyCheckAlarm, Timestamp createdAt){
         this.bodyCheckNo = bodyCheckNo;
         this.userNo = userNo;
         this.userId = userId;
-        this.score = score;
+        this.bodyCheckDetailsNo = bodyCheckDetailsNo;
         this.bodyCheckAlarm = bodyCheckAlarm;
         this.createdAt = createdAt;
     }

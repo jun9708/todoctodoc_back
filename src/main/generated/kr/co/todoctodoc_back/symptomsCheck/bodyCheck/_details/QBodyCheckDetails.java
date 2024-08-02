@@ -1,4 +1,4 @@
-package kr.co.todoctodoc_back.symptomsCheck.bodyCheck;
+package kr.co.todoctodoc_back.symptomsCheck.bodyCheck._details;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBodyCheckDetails extends EntityPathBase<BodyCheckDetails> {
 
-    private static final long serialVersionUID = -638626793L;
+    private static final long serialVersionUID = 2064351692L;
 
     public static final QBodyCheckDetails bodyCheckDetails = new QBodyCheckDetails("bodyCheckDetails");
 

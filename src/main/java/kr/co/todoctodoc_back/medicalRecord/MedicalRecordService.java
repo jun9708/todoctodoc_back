@@ -49,23 +49,12 @@ public class MedicalRecordService {
     @Autowired
     private UserJPARepository userJPARepository;
 
-    public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO, String token) {
+    public MedicalRecordRespDTO saveMedicalRecord(MedicalRecordReqDTO medicalRecordReqDTO, String userId) {
 
-        //토큰 사용자ID 추출
-        String userId;
-        try{
-            userId = JwtTokenUtils.extractUserId(token);
-        }catch (Exception e){
-            throw new Exception400("saveMedicalRecord : Token error");
-        }
-
-        //사용자 인증 확인
-        if(userId == null || userId.isEmpty()){
-            throw new Exception400("saveMedicalRecord : Token Check error"); //사용자 인증실패
-        }
 
         // medicalRecord 테이블에서 userId 확인
         Optional<MedicalRecord> existingRecord = medicalRecordJPARepository.findByUserId(userId);
+
         if (existingRecord.isPresent()) {
             // 이미 존재하는 경우 로직을 수행하지 않음
             throw new CustomRestfullException("이미 등록되어있는 userId",HttpStatus.INTERNAL_SERVER_ERROR);
