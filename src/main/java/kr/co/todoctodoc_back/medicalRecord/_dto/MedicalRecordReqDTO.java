@@ -36,6 +36,6 @@ public class MedicalRecordReqDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate hormoneTherapyStartDate;
 
-    private List<Integer> hormoneTherapyNo;
+    private String hormoneTherapyName;
 
 }

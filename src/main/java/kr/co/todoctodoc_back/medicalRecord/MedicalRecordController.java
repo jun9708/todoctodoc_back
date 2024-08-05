@@ -46,7 +46,7 @@ public class MedicalRecordController {
             log.info("요청 값 : " +medicalRecordReqDTO);
 
             // hormoneLinkService 로직 수행
-            HormoneLinkRespDTO hormoneLinkRespDTO = hormoneLinkService.saveHormoneLink(medicalRecordReqDTO, userId);
+           // HormoneLinkRespDTO hormoneLinkRespDTO = hormoneLinkService.saveHormoneLink(medicalRecordReqDTO, userId);
 
             // medicalRecordService 로직 수행
             MedicalRecordRespDTO response = medicalRecordService.saveMedicalRecord(medicalRecordReqDTO, userId);

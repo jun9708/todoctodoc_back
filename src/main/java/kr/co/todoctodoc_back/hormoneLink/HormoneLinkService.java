@@ -30,6 +30,7 @@ public class HormoneLinkService {
     private final HormoneLinkJPARepository hormoneLinkJPARepository;
     private final HormoneLinkMapper hormoneLinkMapper;
 
+    /*
     //HormoneLink 저장
     public HormoneLinkRespDTO saveHormoneLink(MedicalRecordReqDTO medicalRecordReqDTO, String userId) {
 
@@ -98,6 +99,8 @@ public class HormoneLinkService {
         }
 
     }
+
+     */
 
 
 }

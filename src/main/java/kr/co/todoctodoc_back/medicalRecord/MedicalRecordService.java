@@ -68,6 +68,7 @@ public class MedicalRecordService {
                 .diagnosisDate(medicalRecordReqDTO.getDiagnosisDate())
                 .surgeryDate(medicalRecordReqDTO.getSurgeryDate())
                 .hormoneTherapyStartDate(medicalRecordReqDTO.getHormoneTherapyStartDate())
+                .hormoneTherapyName(medicalRecordReqDTO.getHormoneTherapyName())
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 

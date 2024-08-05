@@ -27,17 +27,20 @@ public class MedicalRecord {
     private LocalDate surgeryDate;
     private LocalDate hormoneTherapyStartDate;
 
+    private String hormoneTherapyName;
+
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
-    public MedicalRecord(Integer medicalNo, int userNo, String userId, LocalDate diagnosisDate, LocalDate surgeryDate, LocalDate hormoneTherapyStartDate, Timestamp createdAt) {
+    public MedicalRecord(Integer medicalNo, int userNo, String userId, LocalDate diagnosisDate, LocalDate surgeryDate, LocalDate hormoneTherapyStartDate, String hormoneTherapyName, Timestamp createdAt) {
         this.medicalNo = medicalNo;
         this.userNo = userNo;
         this.userId = userId;
         this.diagnosisDate = diagnosisDate;
         this.surgeryDate = surgeryDate;
         this.hormoneTherapyStartDate = hormoneTherapyStartDate;
+        this.hormoneTherapyName = hormoneTherapyName;
         this.createdAt = createdAt;
 
 

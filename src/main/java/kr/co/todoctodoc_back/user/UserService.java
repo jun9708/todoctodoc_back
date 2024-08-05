@@ -193,7 +193,7 @@ public class UserService {
         }
          */
 
-        user.updateNickname(requestDTO.getNickname());
+        //user.updateNickname(requestDTO.getNickname());
         //   System.out.println("조건문 지남 " + userOP.getUserImage());
         // System.out.println("조건문 지남 " + userOP.getNickname());
 

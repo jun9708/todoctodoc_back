@@ -33,29 +33,21 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(length = 50)
-    private String nickname;
-
     private boolean role; // user = true | admin = false
 
     @CreationTimestamp
     private Timestamp userCreatedAt;
 
     @Builder
-    public User( Integer userNo, String userId, String username, String birth, String tel, String password, String nickname, boolean role, Timestamp userCreatedAt) {
+    public User( Integer userNo, String userId, String username, String birth, String tel, String password, boolean role, Timestamp userCreatedAt) {
         this.userNo = userNo;
         this.userId = userId;
         this.username = username;
         this.birth = birth;
         this.tel = tel;
         this.password = password;
-        this.nickname = nickname;
         this.role = role;
         this.userCreatedAt = userCreatedAt;
-    }
-
-    public void updateNickname(String nickname){
-        this.nickname = nickname;
     }
 
     public void updatePassword(String password){
