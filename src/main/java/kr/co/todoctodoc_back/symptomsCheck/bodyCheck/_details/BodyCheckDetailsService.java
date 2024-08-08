@@ -38,6 +38,9 @@ public class BodyCheckDetailsService {
         //BodyCheck 테이블에 userNo 조회
         Optional<BodyCheck> existinBodyCheck = bodyCheckJPARepository.findByUserId(userId);
 
+
+        log.info("userNo 조회 : " +existinBodyCheck);
+
         userBodyCheckDetailsNo(bodyCheckReqDTO, userNo);
 
 
