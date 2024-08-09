@@ -2,6 +2,7 @@ package kr.co.todoctodoc_back.symptomsCheck.bodyCheck._details;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,5 +38,11 @@ public class BodyCheckDetails {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    @Builder
+    public BodyCheckDetails(Integer bodyCheckDetailsNo, int userNo, String userId, int heatSensationScore, int cardiovascularScore, int sleepScore, int painScore, Timestamp createdAt){
+        this.bodyCheckDetailsNo = bodyCheckDetailsNo;
+        this.userNo = userNo;
+    }
 
 }

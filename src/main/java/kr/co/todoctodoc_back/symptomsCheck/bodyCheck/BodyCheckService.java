@@ -43,15 +43,12 @@ public class BodyCheckService {
         int userNo = userJPARepository.findUserNoByUserId(userId);
 
 
-        /*
         BodyCheck bodyCheck = BodyCheck.builder()
                 .userNo(userNo)
                 .userId(userId)
                 .bodyCheckAlarm(bodyCheckReqDTO.getBodyCheckAlarm())
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
-
-         */
 
 
     }

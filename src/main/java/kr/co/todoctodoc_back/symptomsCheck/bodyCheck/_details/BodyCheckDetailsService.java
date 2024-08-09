@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -35,13 +39,27 @@ public class BodyCheckDetailsService {
 
         int userNo = commonService.selectUserNo(userId);
 
-        //BodyCheck 테이블에 userNo 조회
-        Optional<BodyCheck> existinBodyCheck = bodyCheckJPARepository.findByUserId(userId);
+        //날짜 조회
+        Timestamp createAt = bodyCheckReqDTO.getCreatedAt();
+        List<BodyCheckDetails> existingBodyChecksDetails = bodyCheckDetailsJPARepository.findByUserNoAndCreatedAt(userNo, createAt);
+
+        log.info("날짜 조회 : "  +existingBodyChecksDetails);
+
+        //존재하는 BodyCheck 동일한 날짜 데이터 조회 이후
+        //조회된 데이터가 없다면
+        if(existingBodyChecksDetails.isEmpty()){
+            //BodyCheckDetail 정보 저장
+            BodyCheckDetails bodyCheckDetails = BodyCheckDetails.builder()
+                    .userNo(userNo)
+                    .userId(userId)
+                    .build();
+
+        }
+        else{
+            //조회된 데이터가 있다면
 
 
-        log.info("userNo 조회 : " +existinBodyCheck);
-
-        userBodyCheckDetailsNo(bodyCheckReqDTO, userNo);
+        }
 
 
 
@@ -63,6 +81,7 @@ public class BodyCheckDetailsService {
     public void userBodyCheckDetailsNo(BodyCheckReqDTO.bodyCheckReqDTO bodyCheckReqDTO, int userNo){
         try{
             //userNo가 가지고 있는 bodyCheckDetailNo 조회
+            Optional<BodyCheckDetails> bodyCheckDetails = bodyCheckDetailsJPARepository.findById(userNo);
 
 
         }catch (RuntimeException checkBodyCheckError){
@@ -70,5 +89,6 @@ public class BodyCheckDetailsService {
         }
 
     }
+
 
 }
