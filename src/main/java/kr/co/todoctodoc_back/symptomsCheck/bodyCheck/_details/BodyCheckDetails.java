@@ -43,6 +43,12 @@ public class BodyCheckDetails {
     public BodyCheckDetails(Integer bodyCheckDetailsNo, int userNo, String userId, int heatSensationScore, int cardiovascularScore, int sleepScore, int painScore, Timestamp createdAt){
         this.bodyCheckDetailsNo = bodyCheckDetailsNo;
         this.userNo = userNo;
+        this.userId = userId;
+        this.heatSensationScore = heatSensationScore;
+        this.cardiovascularScore = cardiovascularScore;
+        this.sleepScore = sleepScore;
+        this.painScore = painScore;
+        this.createdAt = createdAt;
     }
 
 }

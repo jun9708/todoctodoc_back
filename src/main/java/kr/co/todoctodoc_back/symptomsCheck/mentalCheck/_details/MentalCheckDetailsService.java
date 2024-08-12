@@ -1,4 +1,4 @@
-package kr.co.todoctodoc_back.symptomsCheck.mentalCheck;
+package kr.co.todoctodoc_back.symptomsCheck.mentalCheck._details;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MentalCheckService {
-
-
-
+public class MentalCheckDetailsService {
 }

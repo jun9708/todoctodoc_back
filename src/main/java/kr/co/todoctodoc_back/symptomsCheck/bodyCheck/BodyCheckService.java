@@ -6,7 +6,10 @@ import kr.co.todoctodoc_back._core.errors.exception.Exception400;
 import kr.co.todoctodoc_back._core.utils.JwtTokenUtils;
 import kr.co.todoctodoc_back.commonService.CommonService;
 import kr.co.todoctodoc_back.medicalRecord.MedicalRecord;
+import kr.co.todoctodoc_back.symptomsCheck.bodyCheck._details.BodyCheckDetails;
+import kr.co.todoctodoc_back.symptomsCheck.bodyCheck._details.BodyCheckDetailsJPARepository;
 import kr.co.todoctodoc_back.symptomsCheck.bodyCheck._dto.BodyCheckReqDTO;
+import kr.co.todoctodoc_back.symptomsCheck.bodyCheck._dto.BodyCheckRespDTO;
 import kr.co.todoctodoc_back.user.UserJPARepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +29,10 @@ public class BodyCheckService {
 
     private final UserJPARepository userJPARepository;
     private final BodyCheckJPARepository bodyCheckJPARepository;
+    private final BodyCheckDetailsJPARepository bodyCheckDetailsJPARepository;
 
     //BodyCheck 등록
-    public void bodyCheckInsert(BodyCheckReqDTO.bodyCheckReqDTO bodyCheckReqDTO, String userId){
+    public BodyCheckRespDTO.bodyCheckRespDTO bodyCheckInsert(BodyCheckReqDTO.bodyCheckReqDTO bodyCheckReqDTO, String userId){
 
         log.info("사용자 확인 : " +userId);
 
@@ -41,15 +45,28 @@ public class BodyCheckService {
         }
 
         int userNo = userJPARepository.findUserNoByUserId(userId);
+        int bodyCheckScore = bodyCheckReqDTO.getCardiovascularScore()+
+                bodyCheckReqDTO.getPainScore()+
+                bodyCheckReqDTO.getSleepScore()+
+                bodyCheckReqDTO.getHeatSensationScore();
 
+        log.info("bodyCheck 총점 : " +bodyCheckScore);
 
         BodyCheck bodyCheck = BodyCheck.builder()
                 .userNo(userNo)
                 .userId(userId)
                 .bodyCheckAlarm(bodyCheckReqDTO.getBodyCheckAlarm())
+                .bodyCheckScore(bodyCheckScore)
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();
 
+        //생성된 bodyCheck 데이터베이스에 저장
+        bodyCheckJPARepository.save(bodyCheck);
+
+        BodyCheckRespDTO.bodyCheckRespDTO response = new BodyCheckRespDTO.bodyCheckRespDTO();
+        response.setMessage("bodyCheck 등록");
+
+        return response;
 
     }
 

@@ -21,8 +21,8 @@ public class BodyCheck {
     private int bodyCheckNo;
     private int userNo;
     private String userId;
-
-    private int bodyCheckDetailsNo;
+    
+    private int bodyCheckScore; //바디체크 총합 점수
 
     @CreationTimestamp
     private Timestamp bodyCheckAlarm;
@@ -30,11 +30,11 @@ public class BodyCheck {
     private Timestamp createdAt;
 
     @Builder
-    public BodyCheck(int bodyCheckNo, int userNo, String userId,int bodyCheckDetailsNo, Timestamp bodyCheckAlarm, Timestamp createdAt){
+    public BodyCheck(int bodyCheckNo, int userNo, String userId,int bodyCheckScore, Timestamp bodyCheckAlarm, Timestamp createdAt){
         this.bodyCheckNo = bodyCheckNo;
         this.userNo = userNo;
         this.userId = userId;
-        this.bodyCheckDetailsNo = bodyCheckDetailsNo;
+        this.bodyCheckScore = bodyCheckScore;
         this.bodyCheckAlarm = bodyCheckAlarm;
         this.createdAt = createdAt;
     }

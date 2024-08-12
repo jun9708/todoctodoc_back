@@ -21,28 +21,12 @@ public class BodyCheckReqDTO {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer BodyCheckNo;
-
-        private int userNo;
-
-        private int bodyCheckDetailsNo;
-
-        private Timestamp bodyCheckAlarm;
-
-        @CreationTimestamp
-        private Timestamp createdAt;
-
-    }
-
-    @Data
-    public static class bodyCheckDetailReqDTO{
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer bodyCheckDetailsNo;
+        private Integer bodyCheckNo;
 
         private int userNo;
         private String userId;
+        
+        private Timestamp bodyCheckAlarm; //바디체크 알람 시간
 
         private int heatSensationScore; // 열감 점수
         private int cardiovascularScore; // 심혈관 점수
@@ -52,9 +36,7 @@ public class BodyCheckReqDTO {
         @CreationTimestamp
         private Timestamp createdAt;
 
-
     }
-
 
 
 }

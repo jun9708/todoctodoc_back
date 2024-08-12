@@ -1,4 +1,4 @@
-package kr.co.todoctodoc_back.symptomsCheck.mentalCheck;
+package kr.co.todoctodoc_back.symptomsCheck.mentalCheck._details;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QMentalCheckDetails extends EntityPathBase<MentalCheckDetails> {
 
-    private static final long serialVersionUID = 2007984613L;
+    private static final long serialVersionUID = -1629985556L;
 
     public static final QMentalCheckDetails mentalCheckDetails = new QMentalCheckDetails("mentalCheckDetails");
 
@@ -23,7 +23,15 @@ public class QMentalCheckDetails extends EntityPathBase<MentalCheckDetails> {
 
     public final NumberPath<Integer> mentalCheckDetailsNo = createNumber("mentalCheckDetailsNo", Integer.class);
 
+    public final NumberPath<Integer> mentalScore1 = createNumber("mentalScore1", Integer.class);
+
+    public final NumberPath<Integer> mentalScore2 = createNumber("mentalScore2", Integer.class);
+
+    public final NumberPath<Integer> mentalScore3 = createNumber("mentalScore3", Integer.class);
+
     public final StringPath userId = createString("userId");
+
+    public final NumberPath<Integer> userNo = createNumber("userNo", Integer.class);
 
     public QMentalCheckDetails(String variable) {
         super(MentalCheckDetails.class, forVariable(variable));
