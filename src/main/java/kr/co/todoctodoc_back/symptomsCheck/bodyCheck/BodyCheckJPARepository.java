@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface BodyCheckJPARepository extends JpaRepository<BodyCheck, Integer> {
     public Optional<BodyCheck> findByUserId(String userId);
-
+    public Optional<BodyCheck>findByBodyCheckAlarm(String userId);
 }

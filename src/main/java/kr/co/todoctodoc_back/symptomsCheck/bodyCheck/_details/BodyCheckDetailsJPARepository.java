@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface BodyCheckDetailsJPARepository extends JpaRepository<BodyCheckDetails, Integer> {
 
     public List<BodyCheckDetails> findByUserNoAndCreatedAt(int userNo, Timestamp createAt);
-
     List<BodyCheckDetails> findByUserNoAndCreatedAtBetween(int userNo, Date startDate, Date endDate);
 
 }

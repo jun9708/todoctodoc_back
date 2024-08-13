@@ -12,6 +12,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 @Slf4j
 @RestController
 @RequestMapping("/BodyCheck")
@@ -34,7 +39,6 @@ public class BodyCheckRestController {
         String userId = commonService.tokenCheck(token);
         
         try{
-            log.info("bodyCheckDetailsService 시작전 : ");
             bodyCheckDetailsService.saveBodyCheckPoint(bodyCheckReqDTO, userId);
             BodyCheckRespDTO.bodyCheckRespDTO bodyCheckRespResult = bodyCheckService.bodyCheckInsert(bodyCheckReqDTO, userId);
 
