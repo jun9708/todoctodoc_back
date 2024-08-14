@@ -10,11 +10,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -35,7 +37,9 @@ public class MrsRestController {
         String userId = commonService.tokenCheck(token);
 
         //각 체크별 사용자 알람 조회
-        bodyCheckJPARepository.findByBodyCheckAlarm(userId);
+
+        Optional<Timestamp> bodyCheckAlarm = bodyCheckJPARepository.findBodyCheckAlarmByUserId(userId);
+
 
 
 
