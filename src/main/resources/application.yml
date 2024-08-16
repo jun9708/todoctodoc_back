@@ -2,4 +2,5 @@ spring:
   profiles:
     active:
       - dev
+      - API-KEY
     include: API-KEY
