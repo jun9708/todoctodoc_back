@@ -22,7 +22,7 @@ spring:
       max-request-size: 20MB
 
   datasource:
-    url: jdbc:mysql://43.200.176.222/todoctodoc_back
+    url: jdbc:mysql://13.125.197.235/todoctodoc_back
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: theWell
     password: Abcd1234!
@@ -42,6 +42,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
       default_batch_fetch_size: 100
     open-in-view: false
   output:

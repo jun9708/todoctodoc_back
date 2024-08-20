@@ -11,8 +11,8 @@ env:
   PROJECT_NAME: /todoctodoc_back
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: thewell-s3-bucket-github-actions
-  CODE_DEPLOY_APPLICATION_NAME: theWell-codedeploy-app
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: theWell-codedeploy-deploy-group
+  CODE_DEPLOY_APPLICATION_NAME: thewell-codedeploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: thewell-codedeploy-deploy-group
   
 # workflow는 한개 이상의 job을 가지며, 각 job은 여러 step에 따라 단계를 나눔
 jobs:
