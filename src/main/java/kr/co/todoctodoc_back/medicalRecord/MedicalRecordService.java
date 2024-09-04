@@ -53,21 +53,21 @@ public class MedicalRecordService {
 
 
         // medicalRecord 테이블에서 userId 확인
-        Optional<MedicalRecord> existingRecord = medicalRecordJPARepository.findByUserId(userId);
+        Optional<MedicalRecord> existingRecord = medicalRecordJPARepository.findByUserId("test@gmail.com");
 
         if (existingRecord.isPresent()) {
             // 이미 존재하는 경우 로직을 수행하지 않음
             throw new CustomRestfullException("이미 등록되어있는 userId",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        int userNo = userJPARepository.findUserNoByUserId(userId);
+        int userNo = userJPARepository.findUserNoByUserId("test@gmail.com");
 
         MedicalRecord medicalRecord = MedicalRecord.builder()
-                .userNo(userNo)
                 .userId(userId)
                 .diagnosisDate(medicalRecordReqDTO.getDiagnosisDate())
                 .surgeryDate(medicalRecordReqDTO.getSurgeryDate())
                 .hormoneTherapyStartDate(medicalRecordReqDTO.getHormoneTherapyStartDate())
+                .injectionStartDate(medicalRecordReqDTO.getInjectionStartDate())
                 .hormoneTherapyName(medicalRecordReqDTO.getHormoneTherapyName())
                 .createdAt(Timestamp.valueOf(LocalDateTime.now()))
                 .build();

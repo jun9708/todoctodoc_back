@@ -18,14 +18,16 @@ public class MedicalRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medicalNo;
 
-    private int userNo;
+    private Integer userNo;
 
     @Column(length = 50, nullable = false, unique = true)
     private String userId;
 
-    private LocalDate diagnosisDate;
-    private LocalDate surgeryDate;
-    private LocalDate hormoneTherapyStartDate;
+
+    private String diagnosisDate;
+    private String surgeryDate;
+    private String hormoneTherapyStartDate;
+    private String injectionStartDate;
 
     private String hormoneTherapyName;
 
@@ -33,13 +35,14 @@ public class MedicalRecord {
     private Timestamp createdAt;
 
     @Builder
-    public MedicalRecord(Integer medicalNo, int userNo, String userId, LocalDate diagnosisDate, LocalDate surgeryDate, LocalDate hormoneTherapyStartDate, String hormoneTherapyName, Timestamp createdAt) {
+    public MedicalRecord(Integer medicalNo, int userNo, String userId, String diagnosisDate, String surgeryDate, String hormoneTherapyStartDate, String injectionStartDate,String hormoneTherapyName, Timestamp createdAt) {
         this.medicalNo = medicalNo;
         this.userNo = userNo;
         this.userId = userId;
         this.diagnosisDate = diagnosisDate;
         this.surgeryDate = surgeryDate;
         this.hormoneTherapyStartDate = hormoneTherapyStartDate;
+        this.injectionStartDate = injectionStartDate;
         this.hormoneTherapyName = hormoneTherapyName;
         this.createdAt = createdAt;
 

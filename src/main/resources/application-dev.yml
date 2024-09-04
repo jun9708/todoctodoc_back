@@ -22,17 +22,18 @@ spring:
       max-request-size: 20MB
 
   datasource:
-    url: jdbc:mysql://43.200.176.222/todoctodoc_back
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: theWell
-    password: Abcd1234!
-
-  sql:
-    init:
-      encoding: utf-8
-      data-locations:
-        - classpath:db/data.sql
-      mode: never
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    h2:
+      console:
+        enabled: true
+    sql:
+      init:
+        encoding: utf-8
+        data-locations:
+          - classpath:db/data.sql
 
   jpa:
     defer-datasource-initialization: true

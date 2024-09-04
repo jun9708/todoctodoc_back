@@ -1,5 +1,5 @@
-insert into user_tb(userid, username, password, birth, tel, nickname, role, user_created_at)
-values ('wnsgud1997', '김준형', '1234', '1997-08-11', '010-7897-4454', '김토닥', true, NOW());
+insert into user_tb(user_id, username, password, birth, tel, role, user_created_at)
+values ('test@gmail.com', 'test', '1234', '0000-00-00', '010-0000-0000', true, NOW());
 
 insert into terms(content1, content2, content3)
 values ('여러분을 환영합니다.
